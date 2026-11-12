@@ -1,5 +1,6 @@
 import { Building2, MapPin, HardHat, Wallet } from 'lucide-react';
 import Card from '../../components/ui/Card';
+import StaticMap from '../../components/map/StaticMap';
 
 const kpis = [
   { label: 'إجمالي الأضرار المقيّمة', value: '108 مليار $', icon: Building2, color: 'text-red-500' },
@@ -30,19 +31,22 @@ export default function DashboardPage() {
         ))}
       </div>
 
+      {/* Map and Chart Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2">
-          <h3 className="text-lg font-bold text-slate-800 mb-4">خريطة الأضرار</h3>
-          <div className="h-64 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400">
-            [ الخريطة التفاعلية - قيد التنفيذ ]
+        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-slate-800">خريطة الأضرار</h3>
+            <span className="text-xs text-slate-400">آخر تحديث: 2026-01-15</span>
           </div>
-        </Card>
-        <Card>
+          <StaticMap />
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
           <h3 className="text-lg font-bold text-slate-800 mb-4">الأضرار حسب القطاع</h3>
           <div className="h-64 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400">
             [ الرسم البياني - قيد التنفيذ ]
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );
