@@ -4,6 +4,7 @@ import RegisterPage from './features/auth/pages/RegisterPage';
 import MainLayout from './components/layout/MainLayout';
 import DashboardPage from './features/dashboard/DashboardPage';
 import MapPage from './features/map/MapPage';
+import DamageAnalysisPage from './features/damage-analysis/DamageAnalysisPage';
 
 
 function App() {
@@ -13,8 +14,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={ <RegisterPage /> } />
       <Route path="/map" element={<MapPage />} />
-      
-      {/* Protected Routes - للتبسيط حالياً، سنضيف الحماية لاحقاً */}
+      <Route path="/damage-analysis" element={<DamageAnalysisPage />} />
       <Route path="/dashboard" element={
         <MainLayout>
           <DashboardPage />

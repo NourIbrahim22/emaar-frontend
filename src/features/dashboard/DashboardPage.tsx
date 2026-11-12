@@ -31,7 +31,6 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Map and Chart Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
           <div className="flex items-center justify-between mb-4">
