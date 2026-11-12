@@ -1,22 +1,50 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, Map, ScanSearch, Calculator, ListOrdered, 
-  FolderKanban, FileText, Eye, Settings, LogOut 
+  FolderKanban, FileText, Eye, Settings, LogOut, Users 
 } from 'lucide-react';
+import type { UserRole } from '../../types/user.types';
+import { useAuth } from '../../contexts/AuthContext';
 
 const menuItems = [
-  { path: '/dashboard', label: 'لوحة التحكم', icon: LayoutDashboard },
-  { path: '/map', label: 'الخريطة التفاعلية', icon: Map },
-  { path: '/damage-analysis', label: 'تحليل الأضرار', icon: ScanSearch },
-  { path: '/costs', label: 'تقدير التكاليف', icon: Calculator },
-  { path: '/priorities', label: 'ترتيب الأولويات', icon: ListOrdered },
-  { path: '/projects', label: 'المشاريع', icon: FolderKanban },
-  { path: '/reports', label: 'التقارير', icon: FileText },
-  { path: '/transparency', label: 'الشفافية المفتوحة', icon: Eye },
-  { path: '/settings', label: 'الإعدادات', icon: Settings },
+  { path: '/dashboard', label: 'لوحة التحكم', icon: LayoutDashboard, roles: ['admin', 'gov_employee', 'engineer', 'field_team', 'donor'] },
+  { path: '/map', label: 'الخريطة التفاعلية', icon: Map, roles: ['admin', 'gov_employee', 'engineer', 'field_team', 'donor'] },
+  { path: '/damage-analysis', label: 'تحليل الأضرار', icon: ScanSearch, roles: ['engineer'] },
+  { path: '/costs', label: 'تقدير التكاليف', icon: Calculator, roles: ['gov_employee'] },
+  { path: '/priorities', label: 'ترتيب الأولويات', icon: ListOrdered, roles: ['gov_employee'] },
+  { path: '/projects', label: 'المشاريع', icon: FolderKanban, roles: ['gov_employee', 'field_team'] }, 
+  { path: '/reports', label: 'التقارير', icon: FileText, roles: ['gov_employee', 'donor'] },
+  { path: '/transparency', label: 'الشفافية المفتوحة', icon: Eye, roles: ['donor'] },
+  { path: '/audit-log', label: 'سجل التدقيق', icon: Users, roles: ['admin', 'gov_employee'] },
+  { path: '/settings', label: 'الإعدادات', icon: Settings, roles: ['admin', 'gov_employee'] },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  userRole: UserRole;
+}
+
+export default function Sidebar({ userRole }: SidebarProps) {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  
+  const filteredItems = menuItems.filter(item => item.roles.includes(userRole));
+
+  const getRoleLabel = (role: UserRole) => {
+    switch(role) {
+      case 'admin': return 'مدير النظام (مراقب)';
+      case 'gov_employee': return 'موظف حكومي';
+      case 'engineer': return 'مهندس مدني';
+      case 'field_team': return 'فريق ميداني';
+      case 'donor': return 'جهة مانحة';
+      default: return '';
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <aside className="w-64 bg-[#1B2A4A] min-h-screen flex flex-col text-white">
       <div className="h-16 flex items-center justify-center border-b border-white/10">
@@ -24,7 +52,7 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex-1 py-4 space-y-1 overflow-y-auto">
-        {menuItems.map((item) => (
+        {filteredItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
@@ -45,14 +73,17 @@ export default function Sidebar() {
       <div className="border-t border-white/10 p-4">
         <div className="flex items-center gap-3 mb-3">
           <div className="h-10 w-10 rounded-full bg-[#F59E0B] flex items-center justify-center text-white font-bold">
-            ن
+            أ
           </div>
           <div>
-            <p className="text-sm font-bold">نور الهدى</p>
-            <p className="text-xs text-slate-400">موظف إدارة النظام</p>
+            <p className="text-sm font-bold">أحمد الخطيب</p>
+            <p className="text-xs text-slate-400">{getRoleLabel(userRole)}</p>
           </div>
         </div>
-        <button className="flex items-center gap-2 text-slate-400 hover:text-red-400 text-sm w-full">
+        <button 
+          onClick={handleLogout}
+          className="flex items-center gap-2 text-slate-400 hover:text-red-400 text-sm w-full"
+        >
           <LogOut className="h-4 w-4" />
           تسجيل الخروج
         </button>

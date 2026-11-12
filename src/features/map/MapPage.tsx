@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import StaticMap from '../../components/map/StaticMap';
 import MainLayout from '../../components/layout/MainLayout';
+import StaticMap from '../../components/map/StaticMap';
+import type { UserRole } from '../../types/user.types';
+import { Filter } from 'lucide-react';
 
+// بيانات وهمية للمحافظات
 const governorates = [
   { id: 'aleppo', name: 'حلب' },
   { id: 'damascus', name: 'دمشق' },
@@ -10,11 +13,15 @@ const governorates = [
   { id: 'idlib', name: 'إدلب' },
 ];
 
-export default function MapPage() {
+interface MapPageProps {
+  userRole: UserRole;
+}
+
+export default function MapPage({ userRole }: MapPageProps) {
   const [selectedGovernorate, setSelectedGovernorate] = useState('');
 
   return (
-    <MainLayout>
+    <MainLayout userRole={userRole}>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold text-slate-800">الخريطة التفاعلية</h1>
@@ -24,13 +31,13 @@ export default function MapPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1 space-y-4">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-              <h3 className="font-bold text-slate-800 mb-4">الفلاتر</h3>
-
+              <div className="flex items-center gap-2 mb-4">
+                <Filter className="h-5 w-5 text-[#F59E0B]" />
+                <h3 className="font-bold text-slate-800">الفلاتر</h3>
+              </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  المحافظة
-                </label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">المحافظة</label>
                 <select
                   value={selectedGovernorate}
                   onChange={(e) => setSelectedGovernorate(e.target.value)}
@@ -38,17 +45,13 @@ export default function MapPage() {
                 >
                   <option value="">الكل</option>
                   {governorates.map((gov) => (
-                    <option key={gov.id} value={gov.id}>
-                      {gov.name}
-                    </option>
+                    <option key={gov.id} value={gov.id}>{gov.name}</option>
                   ))}
                 </select>
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  المنطقة
-                </label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">المنطقة</label>
                 <select className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent bg-white">
                   <option value="">الكل</option>
                   <option value="jalloum">الجلوم</option>
@@ -58,9 +61,7 @@ export default function MapPage() {
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  الناحية
-                </label>
+                <label className="block text-sm font-medium text-slate-700 mb-2">الناحية</label>
                 <select className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent bg-white">
                   <option value="">الكل</option>
                   <option value="nahia1">الناحية الأولى</option>

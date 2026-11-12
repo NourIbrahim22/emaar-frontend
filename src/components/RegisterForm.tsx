@@ -10,7 +10,7 @@ export default function RegisterForm() {
     organization: '',
     password: '',
     confirmPassword: '',
-    role: 'engineer',
+    role: 'engineer', 
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -33,7 +33,7 @@ export default function RegisterForm() {
             value={formData.fullName}
             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
             className="block w-full pr-10 pl-3 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition"
-            placeholder="م. أحمد الخطيب"
+            placeholder="م.  نور الهدى"
             required
           />
         </div>
@@ -80,9 +80,10 @@ export default function RegisterForm() {
           className="block w-full px-3 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition bg-white"
         >
           <option value="engineer">مهندس مدني</option>
+          <option value="gov_employee">موظف حكومي</option>
           <option value="field_team">فريق ميداني</option>
           <option value="donor">جهة مانحة</option>
-          <option value="viewer">مدير النظام (مراقب)</option>
+          <option value="admin">مدير النظام (مراقب)</option>
         </select>
       </div>
 

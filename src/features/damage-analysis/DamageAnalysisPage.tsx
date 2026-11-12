@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { UploadCloud, Play, CheckCircle, AlertTriangle, Building2, RefreshCw, X } from 'lucide-react';
+import { UploadCloud, Play, CheckCircle, AlertTriangle, RefreshCw } from 'lucide-react';
 import MainLayout from '../../components/layout/MainLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
+import type { UserRole } from '../../types/user.types';
 
-export default function DamageAnalysisPage() {
-  const [beforeImage, setBeforeImage] = useState<File | null>(null);
-  const [afterImage, setAfterImage] = useState<File | null>(null);
+interface DamageAnalysisPageProps {
+  userRole: UserRole;
+}
+
+export default function DamageAnalysisPage({ userRole }: DamageAnalysisPageProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
@@ -15,18 +18,18 @@ export default function DamageAnalysisPage() {
     setTimeout(() => {
       setIsAnalyzing(false);
       setShowResults(true);
-    }, 2000); 
+    }, 2000);
   };
 
   return (
-    <MainLayout>
+    <MainLayout userRole={userRole}>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold text-slate-800">تحليل الأضرار</h1>
           <p className="text-slate-500 mt-1">ارفع صور الأقمار الصناعية أو الطائرات المسيّرة لتشغيل نموذج الذكاء الاصطناعي</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">   
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 space-y-4">
             <Card>
               <h3 className="text-lg font-bold text-slate-800 mb-4">رفع الصور</h3>
@@ -92,6 +95,7 @@ export default function DamageAnalysisPage() {
             </Card>
           </div>
 
+          {/* LEFT COLUMN: Results Panel (60%) */}
           <div className="lg:col-span-7">
             {!showResults ? (
               <Card className="h-full flex items-center justify-center min-h-[400px]">
@@ -160,7 +164,7 @@ export default function DamageAnalysisPage() {
                     </div>
                     <div className="relative">
                       <div className="h-40 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-sm">بعد (2024)</div>
-                      <span className="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">بعد</span>
+                      <span className="absolute bottom-2 left-2 bg-black/60 text-white text-xs py-1 rounded">بعد</span>
                     </div>
                   </div>
                 </Card>

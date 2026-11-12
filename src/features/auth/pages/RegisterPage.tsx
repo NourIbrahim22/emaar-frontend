@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import RegisterForm from '../../../components/RegisterForm';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export default function RegisterPage() {
+  const { login } = useAuth();
+
   return (
     <div className="min-h-screen flex">
       <div className="hidden lg:flex lg:w-1/2 bg-[#1B2A4A] relative overflow-hidden items-center justify-center">
