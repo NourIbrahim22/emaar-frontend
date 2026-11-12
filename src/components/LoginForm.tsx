@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +11,8 @@ export default function LoginForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Login:', { email, password });
+    
+    navigate('/dashboard');
   };
 
   return (

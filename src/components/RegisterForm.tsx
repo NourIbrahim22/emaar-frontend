@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Building2, UserPlus } from 'lucide-react';
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -15,6 +16,8 @@ export default function RegisterForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Register:', formData);
+    
+    navigate('/dashboard');
   };
 
   return (
