@@ -4,7 +4,6 @@ import LoginForm from '../../../components/LoginForm';
 export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
-      {/* القسم الأيسر: صورة (في RTL يظهر يساراً) */}
       <div className="hidden lg:flex lg:w-1/2 bg-[#1B2A4A] relative overflow-hidden items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1B2A4A] to-[#2D3F5F] opacity-90"></div>
         <div className="relative z-10 text-center px-12">
@@ -15,7 +14,6 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* القسم الأيمن: النموذج (في RTL يظهر يميناً) */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-slate-50">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">

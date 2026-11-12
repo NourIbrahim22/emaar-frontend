@@ -9,7 +9,6 @@ export default function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // سيتم ربطها بالـ API لاحقاً
     console.log('Login:', { email, password });
   };
 
